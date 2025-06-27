@@ -1,0 +1,46 @@
+Introduction:
+
+1)Finding flags:  we can see the flag right there, beginner intro->crypto{y0ur_f1rst_fl4g}
+
+2)Great snakes:   As we can see in the source code , it checks for the version of it via sys module , so having a python3 installed is enough to run and get teh flag -->crypto{z3n_0f_pyth0n}
+  
+3)network attacks: 
+from pwn import *
+import json
+
+HOST = "socket.cryptohack.org"
+port = 11112
+
+r = remote(HOST,port)
+
+def json_recieve():
+    line = r.readline()
+    return json.loads(line.decode())
+
+
+def json_send(hsh):
+    k = json.dumps(hsh).encode()
+    r.sendline(k)
+
+
+print(r.readline())
+print(r.readline())
+print(r.readline())
+print(r.readline())
+
+request = {
+    "buy":"flag"
+}
+
+json_send(request)
+k = json_recieve()
+print(k)
+
+
+#this code gave me the flag , as instructed in the sample code , i use remote() to start the connection and as the data is transferred i raw bytes ,i had to take care of converting it into bytes before sending and converting back to normal
+ after recieving and i had to skip the first 4 lines bcuz as teh port opens the default things like welcome are sent , so as i dont need them , i can skip em
+
+
+
+General:
+
