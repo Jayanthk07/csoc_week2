@@ -237,4 +237,64 @@ print(matrix2bytes(matrix).decode())
 hence it gives me the flag-->crypto{inmatrix}
 
 
-4)
+-->RSA:
+
+1)Modular exponentiation: so we have a builtin functiionality in python which calucates number power something and mod other thing , which is pow(), so the code is ,,
+print(pow(101,17,22663))
+and the answer is 19906
+
+2)Public Keys: here we are using the power as N which p*q and e is exponent , then the code is ,,
+
+p = 17
+q = 23
+e = 65537 
+flag = 12
+print(pow(flag,e,p*q))
+
+the answer here is 301
+
+
+3)Euler's Totient: the euler totient of a prime number p is p-1 , hence from the thoerm , we can say fi(pq) = (p-1)*(q-1) ,hence the code is,,
+p = 857504083339712752489993810777
+q = 1029224947942998075080348647219 
+print((p-1)*(q-1))
+
+here the answer is 882564595536224140639625987657529300394956519977044270821168
+
+4)private keys: this one is just a combiantion of modinv and fi of n , the decryption algo works like , using the public key (e,N) and the private key could be find by using d≡e−1modϕ(N), so the code is,,
+
+def egcd(p,q):
+    if q==0:
+        return p,1,0
+    else:
+        gcd,x1,y1 = egcd(q,p%q)
+        x = y1 
+        y = x1 - ((p//q)*y1)    
+    return gcd,x,y
+
+def modinv(a,m):
+    gcd,x,y = egcd(a,m)
+    if gcd !=1:
+        print("modinv doesnt exist bruh!!")
+    else:
+        return x%m
+    
+p = 857504083339712752489993810777
+q = 1029224947942998075080348647219
+e=65537                                                                                                                                                                                                                  
+fin = (p-1)*(q-1)
+print(modinv(e,fin))
+
+hence the answer is -->121832886702415731577073962957377780195510499965398469843281
+
+
+5)RSA Decryption:  here using the private key we can decrypt the given c , we have to pow(c,d,N) where d is the private key ,hence the code is,,
+c =77578995801157823671636298847186723593814843845525223303932 
+d = 121832886702415731577073962957377780195510499965398469843281
+N = 882564595536224140639625987659416029426239230804614613279163
+print(pow(c,d,N))
+
+the decrypted number is--> 13371337
+
+
+6)RSA Signatures:  
