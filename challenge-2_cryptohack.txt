@@ -113,5 +113,32 @@ the flag is crypto{aloha}
 
 2)XOR properties: As we know a xor b xor b will be me a , as b xor b = 0 and a ^0 is a, we used that logic here to get the answer
 
+from pwn import xor
+k1=bytes.fromhex('a6c8b6733c9b22de7bc0253266a3867df55acde8635e19c73313')
+k2_3=bytes.fromhex('c1545756687e7573db23aa1c3452a098b71a7fbf0fddddde5fc1')
+flag=bytes.fromhex('04ee9855208a2cd59091d04767ae47963170d1660df7f56f5faf')
+print(xor(k1,k2_3,flag))  
+
+gives the flag -> crypto{x0r_i5_ass0c1at1v3}
+
+
+3)favourite byte: since we know the whole thing is xored with the same key, and as we know that the first few letters of the flag is crypto{, so we can get that key by doing the reverse , like the concept we used before, a^x = b , a = b^x,the code is ,,
+
+input_str = bytes.fromhex('73626960647f6b206821204f21254f7d694f7624662065622127234f726927756d')
+
+key = input_str[0] ^ ord('c')
+print(''.join(chr(c ^ key) for c in input_str))
+
+we get the flag as->crypto{0x10_15_my_f4v0ur173_by7e}
+
+
+4)you either xor or you dont: in this challenge we still know the first few letters there , 7 bytes 'crypto{' by using the xor reversing like same as above, we get the key , which we have to repeat to match the length of the cipher, and that thing is done internally in the pwn.xor(), so the code is
+
+from pwn import xor
+k = bytes.fromhex('0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104')
+a = xor(k,b'crypto{')   # a gives myxoeke+y......., it means the key is myXORkey
+print(xor(a.encode(),k)) # we have to encode a as xor() returns the string value ,but not bytes
+
+hence the flag is ->crypto{1f_y0u_Kn0w_En0uGH_y0u_Kn0w_1t_4ll}
 
 
