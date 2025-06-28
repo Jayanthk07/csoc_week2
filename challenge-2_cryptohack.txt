@@ -142,3 +142,99 @@ print(xor(a.encode(),k)) # we have to encode a as xor() returns the string value
 hence the flag is ->crypto{1f_y0u_Kn0w_En0uGH_y0u_Kn0w_1t_4ll}
 
 
+
+
+-->MATHEMATICS:
+
+1)GCD: we know this gcd algo , the code is
+
+a = 66528
+b = 52920
+def gcd(a,b):
+    if b==0:
+        return a
+    else:
+        return gcd(b,a%b)
+print(gcd(a,b))
+
+and the answer was 1512
+
+
+2)Extended GCD: so here the algo is like a backtracking and reversing thing , we find the gcd here , and backtract and build up the values of x and y based on that , x = y1, y = x1 - (a//b)y1, the code is
+
+p=26513
+q=32321
+
+def egcd(p,q):
+    if q==0:
+        return p,1,0
+    else:
+        gcd,x1,y1 = egcd(q,p%q)
+        x = y1 
+        y = x1 - ((p//q)*y1)    
+    return gcd,x,y
+print(egcd(p,q))
+
+and the answer is (1, 10245, -8404) where gcd is 1 and x = 10245,y=-8404
+
+3)Modular arithmetic-1: here we just to mod and find the min,so the code is,,
+
+print(min(11%6,8146798528947%17))
+
+so the answer here is 4
+
+
+4)Modular arithmetic-2: we use fermats lil theorm here , if p is a prime number and a is an integer not divisible by p , then a poer p-1 equalent to 1 mod p , which means the answer here is 1 by the thoerm
+
+5)modinv: to find modinv we can also use eea(extended euclidian algo) , so here in that code p is a and q is m and the x in the px + qy = gcd(p,q) is the modinv , and the gcd must be 1 for the modinv to exist, so the code is,,
+
+
+def egcd(p,q):
+    if q==0:
+        return p,1,0
+    else:
+        gcd,x1,y1 = egcd(q,p%q)
+        x = y1 
+        y = x1 - ((p//q)*y1)    
+    return gcd,x,y
+
+
+def modinv(a,m):
+    gcd,x,y = egcd(a,m)
+    if gcd !=1:
+        print("modinv doesnt exist bruh!!")
+    else:
+        return x%m
+    
+print(modinv(3,13))
+
+so we get the modinv as 9
+
+
+
+-->AES:
+1)Keyed Permutations: as we know we call one one correespondance as bijection in math terms , so the flag is crypt{bijection}
+
+2)Resisting Bruteforce: this attack is known as biclique attack ,so the flag is crypto{'biclique'}
+
+3)Structure of AES: As we know that the basi step ofthe aes encryption is to convert the given text to bytes and then fill in the matrix , in an order like filling the rows first, the code for b2m and m2m are given below,,
+def bytes2matrix(text):
+    """ Converts a 16-byte array into a 4x4 matrix.  """
+    return [list(text[i:i+4]) for i in range(0, len(text), 4)]
+
+def matrix2bytes(matrix):
+    return bytes(sum(matrix,[]))
+
+matrix = [
+    [99, 114, 121, 112],
+    [116, 111, 123, 105],
+    [110, 109, 97, 116],
+    [114, 105, 120, 125],
+]
+
+print(matrix2bytes(matrix).decode())
+
+hence it gives me the flag-->crypto{inmatrix}
+
+
+4)
