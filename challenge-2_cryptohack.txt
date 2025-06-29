@@ -297,4 +297,11 @@ print(pow(c,d,N))
 the decrypted number is--> 13371337
 
 
-6)RSA Signatures:  
+6)RSA Signatures:  here we can see for e =1 , ct =pt so converting the given ct into string will give us the asnwer , the code is,,
+
+from Crypto.Util.number import *
+k = 44981230718212183604274785925793145442655465025264554046028251311164494127485
+kb = long_to_bytes(k)
+print(kb.decode())
+
+the flag is -->crypto{saltstack_fell_for_this!}
