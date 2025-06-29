@@ -1,0 +1,40 @@
+challenge-1:  
+
+
+
+
+
+
+
+
+challenge-2: so in this case we can see after decoding the source code given in base64 shows that the encryption pattern is like, converting given letters to hex and then taking two two of them,suppose if its like part1 a part2 b of the two two 
+then the combination would be like totally giving a + a^b , so to reverse that, we have to do the samme 
+
+we see the source code first which is ,,
+with open('flag.txt', 'r') as f :
+    flag = f.read()
+
+s = ''.join(format(ord(i), '02x') for i in flag)
+e = ""
+
+for i in range(0,len(s),4) :
+    e += format(int(s[i:i+2],16), '02x')+format(int(s[i:i+2],16)^int(s[i+2:i+4],16), '02x')
+
+with open('output.txt', 'w') as f :
+    f.write(e)
+
+
+and we are given the ouptut.txt so we do the exact reverwe of it ..the reversing code is,,
+
+  
+e = "43104f0c32077b0230455f346e5e77285868722d345a643b6256350636027d77"  # this was the written thing in output.txt
+flag = ""
+for i in range(0, len(e), 4):
+    a = int(e[i:i+2], 16)
+    b = int(e[i+2:i+4], 16)
+    flag += chr(a)
+    flag += chr(a ^ b)
+
+print(flag)
+
+this gives the flag as ->CSOC25{y0u_kn0w_X0r_4nd_b45364}
