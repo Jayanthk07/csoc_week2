@@ -1,9 +1,13 @@
-challenge-1:  
+challenge-1:  after analysing it perfectly , i understood the firstpart is binary and the next part was octal and another part is decimal , and hexadecimal and finally base64 
+after decoding them one by one 
+the first part binary gives---> CSOC25
+the 2nd part gives --> {1d3n71fy
+3rd part --> 1ng_d1BB!H!
+4th part --> n7_3
+5th part --> bc0d1ng5}
 
 
-
-
-
+totally giving --->CSOC25{1d3n71fy1ng_d1BB!H!n7_3bc0d1ng5}
 
 
 
